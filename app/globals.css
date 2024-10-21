@@ -81,3 +81,18 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+.left-screen {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  
+
+  background-image: url('/Artboard.png');
+  background-repeat: no-repeat;  /* Prevents duplication */
+  background-size: cover;        /* Adjusts image to cover the entire area */
+  background-position: center;   /* Centers the background image */
+}
