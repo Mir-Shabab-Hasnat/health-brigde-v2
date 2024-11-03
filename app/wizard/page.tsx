@@ -1,8 +1,19 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import Logo from "@/components/Logo";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import WizardForm from "@/components/WizardForm";
+
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import React from "react";
+
+
 
 const page = async () => {
   const user = await currentUser();
@@ -26,18 +37,19 @@ const page = async () => {
 
       <Card className="w-full">
         <CardHeader>
-            <CardTitle>
-                Personal Info
-            </CardTitle>
-            <CardDescription>
-                Give us some of your vital information
-            </CardDescription>
-            <CardContent>
-                
-            </CardContent>
-        </CardHeader>
+          <CardTitle>Personal Info</CardTitle>
+          <CardDescription>
+            Give us some of your vital information
+          </CardDescription>
+          <CardContent>
+            <WizardForm />
 
+          </CardContent>
+        </CardHeader>
       </Card>
+      <div className="mt-8">
+        <Logo />
+      </div>
     </div>
   );
 };
