@@ -14,6 +14,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useQuery } from "@tanstack/react-query";
+import SkeletonWrapper from "./SkeletonWrapper";
 
 const phoneNumberRegex = /^\+?[1-9]\d{1,14}$/;
 
@@ -26,11 +27,12 @@ const formSchema = z.object({
 });
 
 const WizardForm = () => {
-
   const userInfo = useQuery({
     queryKey: ["userInfo"],
-    queryFn: () => fetch("/api/user-info").then(res => res.json())
-  })
+    queryFn: () => fetch("/api/user-info").then((res) => res.json()),
+  });
+
+  //console.log("@@@ USER INFO", userInfo)
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -42,44 +44,51 @@ const WizardForm = () => {
 
   const handleSubmit = () => {};
   return (
-    <div className="mt-4">
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
-          <FormField
-            control={form.control}
-            name="phoneNumber"
-            render={({ field }) => {
-              return (
-                <FormItem>
-                  <FormLabel>Phone Number</FormLabel>
-                  <FormControl>
-                    <Input placeholder="phone number" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              );
-            }}
-          />
+    <SkeletonWrapper isLoading={userInfo.isFetching}>
+      <div className="mt-4">
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(handleSubmit)}
+            className="space-y-8"
+          >
+            <FormField
+              control={form.control}
+              name="phoneNumber"
+              render={({ field }) => {
+                return (
+                  <FormItem>
+                    <FormLabel>Phone Number</FormLabel>
+                    <FormControl>
+                      <Input placeholder="phone number" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                );
+              }}
+            />
 
-          <FormField
-            control={form.control}
-            name="location"
-            render={({ field }) => {
-              return (
-                <FormItem>
-                  <FormLabel>Location</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Your location" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              );
-            }}
-          />
-          <Button type="submit" className="w-full">Submit</Button>
-        </form>
-      </Form>
-    </div>
+            <FormField
+              control={form.control}
+              name="location"
+              render={({ field }) => {
+                return (
+                  <FormItem>
+                    <FormLabel>Location</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Your location" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                );
+              }}
+            />
+            <Button type="submit" className="w-full">
+              Submit
+            </Button>
+          </form>
+        </Form>
+      </div>
+    </SkeletonWrapper>
   );
 };
 
