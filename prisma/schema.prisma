@@ -1,0 +1,62 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  userId       String        @id
+  email        String        @unique
+  name         String
+  role         String        @default("patient")
+  applications Application[]
+  Appointment Appointment[]
+  createdAt    DateTime      @default(now())
+
+  phoneNumber String?
+  location String?
+
+  
+}
+
+model Doctor {
+  id           String        @id @default(uuid())
+  name         String
+  appointments Appointment[]
+  createdAt    DateTime
+}
+
+model Application {
+  id          String       @id @default(uuid())
+  patient     User         @relation(fields: [patientId], references: [userId])
+  patientId   String
+  issue       String
+  symptoms    String
+  medications String
+  severity    Int
+  status      String       @default("pending")
+  appointment Appointment?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+}
+
+model Appointment {
+  id            String      @id @default(uuid())
+  application   Application @relation(fields: [applicationId], references: [id])
+  applicationId String      @unique // Each application can have only one appointment
+  doctor        Doctor      @relation(fields: [doctorId], references: [id])
+  doctorId      String
+  date          DateTime // Appointment date and time
+  confirmedBy   User        @relation(fields: [confirmedById], references: [userId])
+  confirmedById String // Relates to the `User` model's `id` (Clerk's ID)
+  createdAt     DateTime    @default(now())
+}
