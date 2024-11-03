@@ -22,6 +22,9 @@ model User {
   Appointment Appointment[]
   createdAt    DateTime      @default(now())
 
+  phoneNumber String?
+  location String?
+
   
 }
 
