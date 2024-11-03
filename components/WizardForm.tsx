@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useQuery } from "@tanstack/react-query";
 
 const phoneNumberRegex = /^\+?[1-9]\d{1,14}$/;
 
@@ -25,6 +26,12 @@ const formSchema = z.object({
 });
 
 const WizardForm = () => {
+
+  const userInfo = useQuery({
+    queryKey: ["userInfo"],
+    queryFn: () => fetch("/api/user-info").then(res => res.json())
+  })
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
