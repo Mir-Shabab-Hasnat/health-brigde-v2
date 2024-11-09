@@ -9,9 +9,9 @@ import { Button } from "../ui/button";
 
 interface ApiResponse {
   issue: string;
-  symptoms: string;
+  symptom: string;
   medication: string;
-  other: string;
+  others: string;
   severity: number;
 }
 

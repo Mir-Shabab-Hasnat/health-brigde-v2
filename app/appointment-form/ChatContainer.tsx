@@ -2,14 +2,14 @@
 
 import AIChatBox from "@/components/Chatbot/AIChatBox";
 import AIChatButton from "@/components/Chatbot/AIChatButton";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // API response from ChatGPT analysis
 interface ApiResponse {
   issue: string;
-  symptoms: string;
+  symptom: string;
   medication: string;
-  other: string;
+  others: string;
   severity: number;
 }
 
@@ -21,9 +21,14 @@ const ChatContainer = ({ setChatResponse }: ChatContainerProps) => {
   const [open, setOpen] = useState(false);
   const [apiResponse, setApiResponse] = useState<ApiResponse | null>(null);
 
-  if (apiResponse) {
-    setChatResponse(apiResponse);
-  }
+
+  useEffect(() => {
+    if (apiResponse) {
+        setChatResponse(apiResponse);
+      }
+  }, [apiResponse, setChatResponse])
+  
+  console.log(apiResponse)
 
     return (
         <div className="flex flex-col items-center justify-center rounded-lg p-4 h-auto">
@@ -43,13 +48,13 @@ const ChatContainer = ({ setChatResponse }: ChatContainerProps) => {
                         <strong>Issue:</strong> {apiResponse.issue || "N/A"}
                     </div>
                     <div className="mb-2">
-                        <strong>Symptoms:</strong> {apiResponse.symptoms || "N/A"}
+                        <strong>Symptoms:</strong> {apiResponse.symptom || "N/A"}
                     </div>
                     <div className="mb-2">
                         <strong>Medication:</strong> {apiResponse.medication || "N/A"}
                     </div>
                     <div className="mb-2">
-                        <strong>Other:</strong> {apiResponse.other || "N/A"}
+                        <strong>Other:</strong> {apiResponse.others || "N/A"}
                     </div>
                 </div>
             )}
