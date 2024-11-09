@@ -27,7 +27,7 @@ interface FormProps {
 }
 
 const AppointmentForm = ({ onSubmit }: FormProps) => {
-  const userInfo = useQuery<User>({
+  const { data: userData, isLoading } = useQuery<User>({
     queryKey: ["userInfo"],
     queryFn: () => fetch("/api/get-user-info").then((res) => res.json()),
   });
@@ -35,25 +35,25 @@ const AppointmentForm = ({ onSubmit }: FormProps) => {
   const form = useForm<FormSchemaType>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      name: userInfo.data?.name,
-      dateOfBirth: userInfo.data?.dateOfBirth || "",
-      phoneNumber: userInfo.data?.phoneNumber || "",
-      address: userInfo.data?.location || "",
+      name: userData?.name || "",
+      dateOfBirth: userData?.dateOfBirth || "",
+      phoneNumber: userData?.phoneNumber || "",
+      address: userData?.location || "",
       healthCardNumber: "",
     },
   });
 
   useEffect(() => {
-    if (userInfo) {
+    if (userData) {
       form.reset({
-        name: userInfo.data?.name,
-        dateOfBirth: userInfo.data?.dateOfBirth || "",
-        phoneNumber: userInfo.data?.phoneNumber || "",
-        address: userInfo.data?.location || "",
+        name: userData.name,
+        dateOfBirth: userData.dateOfBirth || "",
+        phoneNumber: userData.phoneNumber || "",
+        address: userData.location || "",
         healthCardNumber: "",
       });
     }
-  }, [userInfo, form]);
+  }, [userData, form]);
 
   return (
     <>
