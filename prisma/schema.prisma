@@ -39,6 +39,9 @@ model Application {
   id          String       @id @default(uuid())
   patient     User         @relation(fields: [patientId], references: [userId])
   patientId   String
+  name         String
+  healthNumber String
+  dateOfBirth String
   issue       String
   symptoms    String
   medications String
