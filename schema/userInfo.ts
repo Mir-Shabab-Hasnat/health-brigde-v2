@@ -9,4 +9,7 @@ export const UpdateUserInfoSchema = z.object({
     .regex(phoneNumberRegex)
     .min(10),
   location: z.string(),
+  dateOfBirth: z
+    .string()
+    
 });

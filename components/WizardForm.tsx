@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -30,6 +31,7 @@ const formSchema = z.object({
     .regex(phoneNumberRegex)
     .min(10),
   location: z.string().nonempty("location is required"),
+  dateOfBirth: z.string()
 });
 
 const WizardForm = () => {
@@ -67,10 +69,12 @@ const WizardForm = () => {
     defaultValues: {
       phoneNumber: "",
       location: "",
+      dateOfBirth: ""
     },
   });
 
   const handleSubmit = (data: z.infer<typeof formSchema>) => {
+    console.log(typeof(data.dateOfBirth))
     mutation.mutate(data)
   };
   return (
@@ -81,6 +85,24 @@ const WizardForm = () => {
             onSubmit={form.handleSubmit(handleSubmit)}
             className="space-y-8"
           >
+            {/* Date of Birth Field */}
+            <FormField
+              control={form.control}
+              name="dateOfBirth"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Date of Birth</FormLabel>
+                  <FormControl>
+                    <Input type="date" placeholder="date" {...field} />
+                  </FormControl>
+                  <FormDescription>
+                    Please enter your date of birth.
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            {/* Phone Number Field */}
             <FormField
               control={form.control}
               name="phoneNumber"
