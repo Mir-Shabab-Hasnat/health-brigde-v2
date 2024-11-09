@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ai-sdk/openai": "^0.0.72",
     "@clerk/nextjs": "^5.7.5",
     "@hookform/resolvers": "^3.9.1",
     "@prisma/client": "^5.21.1",
@@ -19,11 +20,13 @@
     "@radix-ui/react-separator": "^1.1.0",
     "@radix-ui/react-slot": "^1.1.0",
     "@radix-ui/react-toast": "^1.2.2",
+    "ai": "^3.4.33",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "lucide-react": "^0.453.0",
     "next": "14.2.15",
     "next-themes": "^0.3.0",
+    "openai": "^4.71.1",
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.53.1",
