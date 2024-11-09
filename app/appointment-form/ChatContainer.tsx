@@ -2,16 +2,10 @@
 
 import AIChatBox from "@/components/Chatbot/AIChatBox";
 import AIChatButton from "@/components/Chatbot/AIChatButton";
+import ApiResponse from "@/schema/ApiResponse";
 import { useEffect, useState } from "react";
 
-// API response from ChatGPT analysis
-interface ApiResponse {
-  issue: string;
-  symptom: string;
-  medication: string;
-  others: string;
-  severity: number;
-}
+
 
 interface ChatContainerProps {
   setChatResponse: (response: ApiResponse) => void;

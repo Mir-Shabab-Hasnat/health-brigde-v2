@@ -6,14 +6,9 @@ import { cn } from "@/lib/utils";
 import { Bot, Check, Trash, XCircle } from "lucide-react";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+import ApiResponse from "@/schema/ApiResponse";
 
-interface ApiResponse {
-  issue: string;
-  symptom: string;
-  medication: string;
-  others: string;
-  severity: number;
-}
+
 
 
 interface AIChatBoxProps {

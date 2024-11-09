@@ -3,14 +3,8 @@
 import React, { useState } from "react";
 import AppointmentForm from "./AppointmentForm";
 import ChatContainer from "./ChatContainer";
+import ApiResponse from "@/schema/ApiResponse";
 
-interface ApiResponse {
-  issue: string;
-  symptoms: string;
-  medication: string;
-  other: string;
-  severity: number;
-}
 
 function onSubmit() {
   console.log("submit");
