@@ -36,7 +36,7 @@ const AppointmentForm = ({ onSubmit }: FormProps) => {
     resolver: zodResolver(FormSchema),
     defaultValues: {
       name: userInfo.data?.name,
-      dateOfBirth: "",
+      dateOfBirth: userInfo.data?.dateOfBirth || "",
       phoneNumber: userInfo.data?.phoneNumber || "",
       address: userInfo.data?.location || "",
       healthCardNumber: "",
@@ -47,7 +47,7 @@ const AppointmentForm = ({ onSubmit }: FormProps) => {
     if (userInfo) {
       form.reset({
         name: userInfo.data?.name,
-        dateOfBirth: "",
+        dateOfBirth: userInfo.data?.dateOfBirth || "",
         phoneNumber: userInfo.data?.phoneNumber || "",
         address: userInfo.data?.location || "",
         healthCardNumber: "",
