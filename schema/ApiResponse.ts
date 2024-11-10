@@ -1,3 +1,5 @@
+import { z } from "zod";
+
 export default interface ApiResponse {
     issue: string;
     symptom: string;
@@ -5,3 +7,5 @@ export default interface ApiResponse {
     others: string;
     severity: number;
   }
+
+  

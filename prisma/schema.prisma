@@ -40,7 +40,9 @@ model Application {
   patientId    String
   name         String
   healthNumber String
+  phoneNumber  String
   dateOfBirth  String
+  address      String
   issue        String
   symptoms     String
   medications  String
