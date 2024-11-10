@@ -19,6 +19,7 @@ import { FormSchema, FormSchemaType } from "@/schema/appointment";
 import { useQuery } from "@tanstack/react-query";
 import { User } from "@prisma/client";
 import { useEffect } from "react";
+import ApiResponse from "@/schema/ApiResponse";
 
 // Update the schema to include new fields
 

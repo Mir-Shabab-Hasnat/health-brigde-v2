@@ -5,15 +5,50 @@ import AppointmentForm from "./AppointmentForm";
 import ChatContainer from "./ChatContainer";
 import ApiResponse from "@/schema/ApiResponse";
 import { FormSchemaType } from "@/schema/appointment";
-
-
-function onSubmit(data: FormSchemaType) {
-  
-}
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { CreateAplication } from "./_actions/application";
+import { Application } from "@prisma/client";
+import { toast } from "sonner";
 
 const page = () => {
+  const queryClient = useQueryClient();
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: CreateAplication,
+    onSuccess: async (data: Application) => {
+      toast.success(
+        `Application for Appointment for: ${data.issue} by ${data.name}`,
+        {
+          id: "create-aplication",
+        }
+      );
+
+      await queryClient.invalidateQueries({
+        queryKey: ["userInfo"],
+      });
+    },
+    onError: () => {
+      toast.error("Something went wrong", {
+        id: "create-application",
+      });
+    },
+  });
+
+  const onSubmit = (formData: FormSchemaType) => {
+    if (chatResponse) {
+      toast.loading("Creating application for your appointment", {
+        id: "create-category",
+      });
+
+      mutate({ formData, patientAnalysis: chatResponse });
+    }
+    else {
+      toast.error("Chat response not available")
+    }
+  };
+
   const [chatResponse, setChatResponse] = useState<ApiResponse | null>(null);
-  console.log(chatResponse)
+  console.log(chatResponse);
   return (
     <main className="two-column-layout flex min-h-screen">
       <div className="form-container">

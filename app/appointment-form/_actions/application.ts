@@ -6,7 +6,7 @@ import { FormSchema, FormSchemaType } from "@/schema/appointment";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
-export async function CreateAplication(formData: FormSchemaType, patientAnalysis: ApiResponse) {
+export async function CreateAplication({formData, patientAnalysis}: {formData: FormSchemaType, patientAnalysis: ApiResponse}) {
     const parsedFormBody = FormSchema.safeParse(formData)
     if (!parsedFormBody.success) {
         throw new Error("bad form request")
