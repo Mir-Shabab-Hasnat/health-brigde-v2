@@ -9,13 +9,19 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { CreateAplication } from "./_actions/application";
 import { Application } from "@prisma/client";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 const page = () => {
+  const router = useRouter()
   const queryClient = useQueryClient();
 
   const { mutate, isPending } = useMutation({
     mutationFn: CreateAplication,
+    onMutate: () => {
+      toast.loading("Creating your application")
+    },
     onSuccess: async (data: Application) => {
+      toast.dismiss()
       toast.success(
         `Application for Appointment for: ${data.issue} by ${data.name}`,
         {
@@ -26,6 +32,9 @@ const page = () => {
       await queryClient.invalidateQueries({
         queryKey: ["userInfo"],
       });
+
+      
+      router.push("/")
     },
     onError: () => {
       toast.error("Something went wrong", {
