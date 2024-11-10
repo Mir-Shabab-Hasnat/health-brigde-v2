@@ -1,3 +1,4 @@
+import MakeAppointmentButton from "@/components/MakeAppointmentButton";
 import { Button } from "@/components/ui/button";
 import prisma from "@/lib/prisma";
 import { currentUser } from "@clerk/nextjs/server";
@@ -33,9 +34,7 @@ const page = async () => {
             </p>
 
             <div className="flex items-center gap-3">
-              <Button variant={"outline"} className="border-emerald-500 bg-emerald-950 text-white hover:bg-emerald-700 hover:text-white">
-                Make an Appointment Application
-              </Button>
+              <MakeAppointmentButton />
             </div>
           </div>
 

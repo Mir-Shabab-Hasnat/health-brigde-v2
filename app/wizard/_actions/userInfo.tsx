@@ -5,9 +5,9 @@ import { UpdateUserInfoSchema } from "@/schema/userInfo"
 import { currentUser } from "@clerk/nextjs/server"
 import { redirect } from "next/navigation"
 
-export async function UpdateUserInfo({ phoneNumber, location }: { phoneNumber: string | null; location: string | null }) {
+export async function UpdateUserInfo({ phoneNumber, location, dateOfBirth }: { phoneNumber: string | null; location: string | null; dateOfBirth: string | null }) {
     const parsedBody = UpdateUserInfoSchema.safeParse({
-        phoneNumber, location
+        phoneNumber, location, dateOfBirth
     })
 
     if (!parsedBody.success) {
@@ -27,7 +27,7 @@ export async function UpdateUserInfo({ phoneNumber, location }: { phoneNumber: s
         data: {
             phoneNumber: parsedBody.data.phoneNumber,
             location: parsedBody.data.location,
-            
+            dateOfBirth: parsedBody.data.dateOfBirth
 
         }
     })
