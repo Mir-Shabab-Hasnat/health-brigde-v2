@@ -15,10 +15,11 @@ interface AIChatBoxProps {
   open: boolean;
   onClose: () => void;
   setApiResponse: (response: ApiResponse) => void
+  setLoading: (isLoading: boolean) => void
   
 }
 
-const AIChatBox = ({ open, onClose, setApiResponse }: AIChatBoxProps) => {
+const AIChatBox = ({ open, onClose, setApiResponse, setLoading }: AIChatBoxProps) => {
   const {
     
     messages,
@@ -52,6 +53,7 @@ const AIChatBox = ({ open, onClose, setApiResponse }: AIChatBoxProps) => {
   const lastMessageIsUser = messages[messages.length - 1]?.role === "user";
 
   const handleCheckClick = async () => {
+    setLoading(true)
     const formattedMessages = messages
       .map((message) => {
         const prefix = message.role === "user" ? "Patient: " : "AI: ";
