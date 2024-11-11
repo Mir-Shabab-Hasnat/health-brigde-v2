@@ -1,5 +1,7 @@
+"use client";
+
 import { Application } from "@prisma/client";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import {
   Table,
   TableBody,
@@ -11,14 +13,19 @@ import {
 import AppointmentStatusBadge from "./AppointmentStatusBadge";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "./ui/dialog";
 import { Button } from "./ui/button";
 import SkeletonWrapper from "./SkeletonWrapper";
+import { DeletePatientApplication } from "@/app/patientAppointments/_actions/delete-application";
+import { toast } from "sonner";
+import { DeletePatientAppointmentSchemaType } from "@/schema/deleteApplication";
 
 const PatientAppointmentsView = () => {
   const userApplications = useQuery<Application[]>({
@@ -31,6 +38,33 @@ const PatientAppointmentsView = () => {
   if (applications) {
     console.log(applications[0]);
   }
+
+  const deleteAplication = useMutation({
+    mutationFn: DeletePatientApplication,
+    onMutate: () => {
+      toast.loading("Deleting your application...");
+    },
+    onSuccess: async (data: Application) => {
+      toast.dismiss();
+      toast.success(
+        `Appointment for: ${data.issue} created on ${new Date(
+          data.createdAt
+        ).toDateString()} deleted`,
+        {
+          id: "delete-aplication",
+        }
+      );
+    },
+    onError: () => {
+      toast.error("Something went wrong", {
+        id: "delete-application",
+      });
+    },
+  });
+
+  const handleSubmit = (applicationId: string) => {
+    deleteAplication.mutate({ applicationId });
+  };
 
   return (
     <SkeletonWrapper isLoading={userApplications.isFetching}>
@@ -61,12 +95,12 @@ const PatientAppointmentsView = () => {
                           <DialogTitle>
                             Appointment for: {application.issue}
                             <div className="mt-3">
-                              <AppointmentStatusBadge status={application.status} />
+                              <AppointmentStatusBadge
+                                status={application.status}
+                              />
                             </div>
-                            
                           </DialogTitle>
                           <DialogDescription>
-
                             View your appointment details
                           </DialogDescription>
                         </DialogHeader>
@@ -84,6 +118,17 @@ const PatientAppointmentsView = () => {
                             {application.symptoms}
                           </div>
                         </div>
+                        <DialogFooter>
+                          <DialogClose asChild>
+                            <Button
+                              variant="destructive"
+                              type="button"
+                              onClick={() => handleSubmit(application.id)}
+                            >
+                              Delete
+                            </Button>
+                          </DialogClose>
+                        </DialogFooter>
                       </DialogContent>
                     </Dialog>
 
