@@ -32,9 +32,7 @@ const page = () => {
           </div></SkeletonWrapper>
           
         </div>
-        <div className="container mx-auto flex flex-wrap items-center gap-6 px-8 py-8">
-          <PatientAppointmentsView />
-        </div>
+      
         
     </div>
   );

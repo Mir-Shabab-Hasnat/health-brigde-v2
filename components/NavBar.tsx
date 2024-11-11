@@ -23,6 +23,7 @@ const NavBar = () => {
 
 const items = [
   { label: "Dashboard", link: "/" },
+  { label: "Apointments", link: "/patientAppointments" },
   
 ];
 
