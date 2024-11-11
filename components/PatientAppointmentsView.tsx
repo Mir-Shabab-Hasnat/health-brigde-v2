@@ -1,5 +1,6 @@
 import { Application } from "@prisma/client";
 import { useQuery } from "@tanstack/react-query";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "./ui/table";
 
 const PatientAppointmentsView = () => {
     const userApplications = useQuery<Application[]>({
@@ -13,7 +14,26 @@ const PatientAppointmentsView = () => {
     }
       
   return (
-    <div>PatientAppointmentsView</div>
+    <div className="w-full">
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Issue</TableHead>
+            <TableHead>Status</TableHead>
+            <TableHead>Applied When</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {applications?.map(application => (
+            <TableRow key={application.id}>
+                <TableCell>{application.issue}</TableCell>
+                <TableCell>{application.status}</TableCell>
+                <TableCell>{new Date(application.createdAt).toDateString()}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </div>
   )
 }
 

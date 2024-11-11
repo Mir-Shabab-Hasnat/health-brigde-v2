@@ -17,7 +17,7 @@ const page = () => {
           </div>
         </div>
       </div>
-      <div className="container mx-auto flex flex-wrap items-center justify-between gap-6 px-8 py-8">
+      <div className="container mx-auto w-full gap-6 px-8 py-8">
         <PatientAppointmentsView />
       </div>
     </div>
