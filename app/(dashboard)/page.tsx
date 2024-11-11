@@ -2,6 +2,7 @@
 
 import MakeAppointmentButton from "@/components/MakeAppointmentButton";
 import PatientAppointmentsView from "@/components/PatientAppointmentsView";
+import SkeletonWrapper from "@/components/SkeletonWrapper";
 import { Button } from "@/components/ui/button";
 import prisma from "@/lib/prisma";
 import { currentUser } from "@clerk/nextjs/server";
@@ -20,7 +21,7 @@ const page = () => {
   return (
     <div className="h-full bg-background">
         <div className="border-b bg-card">
-          <div className="container mx-auto flex flex-wrap items-center justify-between gap-6 px-8 py-8">
+          <SkeletonWrapper isLoading={userInfo.isFetching}><div className="container mx-auto flex flex-wrap items-center justify-between gap-6 px-8 py-8">
             <p className="text-3xl font-bold">
               Hello, {userInfo.data?.name}!
             </p>
@@ -28,7 +29,8 @@ const page = () => {
             <div className="flex items-center gap-3">
               <MakeAppointmentButton />
             </div>
-          </div>
+          </div></SkeletonWrapper>
+          
         </div>
         <div className="container mx-auto flex flex-wrap items-center gap-6 px-8 py-8">
           <PatientAppointmentsView />
