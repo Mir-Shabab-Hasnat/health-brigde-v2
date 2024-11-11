@@ -45,6 +45,7 @@ const ChatContainer = ({ setChatResponse }: ChatContainerProps) => {
         <div className="text-center mt-4">
         <p>Loading, please wait...</p>
         {/* Optionally add a spinner here */}
+        
       </div>
       )}
       {apiResponse && !loading && (

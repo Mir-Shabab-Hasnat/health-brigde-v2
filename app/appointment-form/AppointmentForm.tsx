@@ -61,10 +61,10 @@ const AppointmentForm = ({ onSubmit }: FormProps) => {
       <div className="form-itself">
         <div className="form-pre-text">
           <h1>Fill out this form!</h1>
-          <p>
-            hi there, please start fill out the form, then chat with our bot,
+          <div className="text-black dark:text-white">
+            Hi there, please start fill out the form, then chat with our bot,
             then submit it ✅
-          </p>
+          </div>
         </div>
 
         <Form {...form}>
