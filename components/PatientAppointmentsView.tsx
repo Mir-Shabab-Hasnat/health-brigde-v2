@@ -60,8 +60,13 @@ const PatientAppointmentsView = () => {
                         <DialogHeader>
                           <DialogTitle>
                             Appointment for: {application.issue}
+                            <div className="mt-3">
+                              <AppointmentStatusBadge status={application.status} />
+                            </div>
+                            
                           </DialogTitle>
                           <DialogDescription>
+
                             View your appointment details
                           </DialogDescription>
                         </DialogHeader>
