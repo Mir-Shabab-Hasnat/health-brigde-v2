@@ -8,6 +8,7 @@ import {
   TableHeader,
   TableRow,
 } from "./ui/table";
+import AppointmentStatusBadge from "./AppointmentStatusBadge";
 
 const PatientAppointmentsView = () => {
   const userApplications = useQuery<Application[]>({
@@ -37,12 +38,12 @@ const PatientAppointmentsView = () => {
               <TableRow key={application.id} className="table-row">
                 <TableCell className="table-cell">
                   {application.issue}
-                  <div className="block md:hidden">
-                    {application.status}
+                  <div className="block md:hidden mt-3">
+                    <AppointmentStatusBadge status={application.status}/>
                   </div>
                 </TableCell>
                 <TableCell className="hidden md:table-cell">
-                  {application.status}
+                <AppointmentStatusBadge status={application.status}/>
                 </TableCell>
                 <TableCell className="hidden md:table-cell">
                   {new Date(application.createdAt).toDateString()}
