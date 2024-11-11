@@ -28,8 +28,8 @@ const PatientAppointmentsView = () => {
           <TableHeader className="table-header">
             <TableRow>
               <TableHead className="table-header-cell">Issue</TableHead>
-              <TableHead className="table-header-cell">Status</TableHead>
-              <TableHead className="table-header-cell">Applied When</TableHead>
+              <TableHead className="table-header-cell hidden md:table-cell">Status</TableHead>
+              <TableHead className="table-header-cell hidden md:table-cell">Applied When</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -37,11 +37,14 @@ const PatientAppointmentsView = () => {
               <TableRow key={application.id} className="table-row">
                 <TableCell className="table-cell">
                   {application.issue}
+                  <div className="block md:hidden">
+                    {application.status}
+                  </div>
                 </TableCell>
-                <TableCell className="table-cell">
+                <TableCell className="hidden md:table-cell">
                   {application.status}
                 </TableCell>
-                <TableCell className="table-cell">
+                <TableCell className="hidden md:table-cell">
                   {new Date(application.createdAt).toDateString()}
                 </TableCell>
               </TableRow>

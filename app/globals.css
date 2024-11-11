@@ -183,7 +183,7 @@ body {
 }
 
 .table-header-cell {
-  @apply p-4 border-b border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300;
+  @apply p-4 border-b border-gray-300 font-bold dark:border-gray-600 text-gray-700 dark:text-gray-300;
 }
 
 .table-row {
