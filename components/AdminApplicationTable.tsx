@@ -32,12 +32,12 @@ const AdminApplicationTable = () => {
             <TableHeader className="table-header">
               <TableRow>
                 <TableHead className="table-header-cell">Issue</TableHead>
-                <TableHead className="table-header-cell">
+                <TableHead className="table-header-cell hidden md:table-cell">
                   Name of Patient
                 </TableHead>
                 <TableHead className="table-header-cell">Severity</TableHead>
-                <TableHead className="table-header-cell">Status</TableHead>
-                <TableHead className="table-header-cell">Applied at</TableHead>
+                <TableHead className="table-header-cell hidden md:table-cell">Status</TableHead>
+                <TableHead className="table-header-cell hidden md:table-cell">Applied at</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -45,17 +45,20 @@ const AdminApplicationTable = () => {
                 <TableRow key={application.id} className="table-row">
                   <TableCell className="table-cell">
                     {application.issue}
+                    <div className="block md:hidden mt-3">
+                      <AppointmentStatusBadge status={application.status} />
+                    </div>
                   </TableCell>
-                  <TableCell className="table-cell">
+                  <TableCell className="hidden md:table-cell">
                     {application.name}
                   </TableCell>
                   <TableCell className="table-cell">
                     <SeverityBadge number={application.severity} />
                   </TableCell>
-                  <TableCell className="table-cell">
+                  <TableCell className="hidden md:table-cell">
                     <AppointmentStatusBadge status={application.status} />
                   </TableCell>
-                  <TableCell className="table-cell">
+                  <TableCell className="hidden md:table-cell">
                     {new Date(application.createdAt).toDateString()}
                   </TableCell>
                 </TableRow>
