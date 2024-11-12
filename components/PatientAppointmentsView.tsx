@@ -30,7 +30,7 @@ import { useRouter } from "next/navigation";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 const PatientAppointmentsView = () => {
-    const router = useRouter()
+  const router = useRouter();
 
   const userApplications = useQuery<Application[]>({
     queryKey: ["userApplications"],
@@ -56,11 +56,10 @@ const PatientAppointmentsView = () => {
         ).toDateString()} deleted`,
         {
           id: "delete-aplication",
-        },
-      
+        }
       );
-      router.push("/")
-      router.refresh()
+      router.push("/");
+      router.refresh();
     },
     onError: () => {
       toast.error("Something went wrong", {
@@ -70,10 +69,7 @@ const PatientAppointmentsView = () => {
   });
 
   const handleSubmit = (applicationId: string) => {
-    
     deleteAplication.mutate({ applicationId });
-    
-    
   };
 
   return (
@@ -133,8 +129,7 @@ const PatientAppointmentsView = () => {
                             <Button
                               variant="destructive"
                               type="button"
-                              onClick={() => 
-                                handleSubmit(application.id)}
+                              onClick={() => handleSubmit(application.id)}
                             >
                               Delete
                             </Button>
