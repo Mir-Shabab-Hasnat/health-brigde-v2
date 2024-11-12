@@ -13,10 +13,13 @@ import {
   TableHeader,
   TableRow,
 } from "./ui/table";
-import { Badge } from "./ui/badge";
 import SeverityBadge from "./ui/SeverityBadge";
+import Link from "next/link";
+import { Button } from "./ui/button";
+import { useRouter } from "next/navigation";
 
 const AdminApplicationTable = () => {
+  const router = useRouter();
   const patientApplications = useQuery<Application[]>({
     queryKey: ["get-all-aplications"],
     queryFn: () => fetch("api/get-all-applications").then((res) => res.json()),
@@ -36,15 +39,25 @@ const AdminApplicationTable = () => {
                   Name of Patient
                 </TableHead>
                 <TableHead className="table-header-cell">Severity</TableHead>
-                <TableHead className="table-header-cell hidden md:table-cell">Status</TableHead>
-                <TableHead className="table-header-cell hidden md:table-cell">Applied at</TableHead>
+                <TableHead className="table-header-cell hidden md:table-cell">
+                  Status
+                </TableHead>
+                <TableHead className="table-header-cell hidden md:table-cell">
+                  Applied at
+                </TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {allApplications?.map((application) => (
                 <TableRow key={application.id} className="table-row">
                   <TableCell className="table-cell">
-                    {application.issue}
+                    <Button variant="outline"
+                      onClick={() => {
+                        router.push(`/admin/dashboard/${application.id}`);
+                      }}
+                    >
+                      {application.issue}
+                    </Button>
                     <div className="block md:hidden mt-3">
                       <AppointmentStatusBadge status={application.status} />
                     </div>
