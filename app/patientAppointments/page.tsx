@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import MakeAppointmentButton from "@/components/MakeAppointmentButton";
 import PatientAppointmentsView from "@/components/PatientAppointmentsView";
@@ -7,7 +7,6 @@ import { useRouter } from "next/navigation";
 import React from "react";
 
 const page = () => {
-  
   return (
     <div className="h-full bg-background">
       <div className="border-b bg-card">
@@ -20,7 +19,7 @@ const page = () => {
         </div>
       </div>
       <div className="container mx-auto w-full gap-6 px-8 py-8">
-        <PatientAppointmentsView/>
+        <PatientAppointmentsView />
       </div>
     </div>
   );

@@ -7,7 +7,7 @@ const statusMap: Record<
 > = {
   pending: { label: "Pending", color: "orange" },
   booked: { label: "Booked", color: "green" },
-  closed: { label: "Booked", color: "red" },
+  closed: { label: "Closed", color: "red" },
 };
 
 const AppointmentStatusBadge = ({ status }: { status: string }) => {
