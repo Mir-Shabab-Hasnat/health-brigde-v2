@@ -9,13 +9,12 @@ export async function GET(request: Request) {
         redirect("/sign-in")
     }
 
-    const userInfo = await prisma.user.findUnique({
+    const userApplications = await prisma.application.findMany({
         where: {
-            userId: user.id
+            patientId: user.id
         }
     })
 
-    
+    return Response.json(userApplications)
 
-    return Response.json(userInfo)
 }

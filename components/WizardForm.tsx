@@ -38,9 +38,9 @@ const WizardForm = () => {
   //const [phoneNumber, setPhoneNumber] = useState<string | null>(null)
   const router = useRouter()
 
-
+  
   const userInfo = useQuery<User>({
-    queryKey: ["userInfo"],
+    queryKey: ["create-userInfo"],
     queryFn: () => fetch("/api/user-info").then((res) => res.json()),
   });
 

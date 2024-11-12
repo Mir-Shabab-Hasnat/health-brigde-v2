@@ -4,7 +4,10 @@ CREATE TABLE "User" (
     "email" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "role" TEXT NOT NULL DEFAULT 'patient',
-    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "phoneNumber" TEXT,
+    "location" TEXT,
+    "dateOfBirth" TEXT
 );
 
 -- CreateTable
@@ -18,6 +21,11 @@ CREATE TABLE "Doctor" (
 CREATE TABLE "Application" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "patientId" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "healthNumber" TEXT NOT NULL,
+    "phoneNumber" TEXT NOT NULL,
+    "dateOfBirth" TEXT NOT NULL,
+    "address" TEXT NOT NULL,
     "issue" TEXT NOT NULL,
     "symptoms" TEXT NOT NULL,
     "medications" TEXT NOT NULL,
