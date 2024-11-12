@@ -27,9 +27,10 @@ import { DeletePatientApplication } from "@/app/patientAppointments/_actions/del
 import { toast } from "sonner";
 import { DeletePatientAppointmentSchemaType } from "@/schema/deleteApplication";
 import { useRouter } from "next/navigation";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 const PatientAppointmentsView = () => {
-  const router = useRouter()
+    const router = useRouter()
 
   const userApplications = useQuery<Application[]>({
     queryKey: ["userApplications"],
@@ -58,6 +59,7 @@ const PatientAppointmentsView = () => {
         },
       
       );
+      router.push("/")
       router.refresh()
     },
     onError: () => {
@@ -70,6 +72,7 @@ const PatientAppointmentsView = () => {
   const handleSubmit = (applicationId: string) => {
     
     deleteAplication.mutate({ applicationId });
+    
     
   };
 
