@@ -13,6 +13,8 @@ import {
   TableHeader,
   TableRow,
 } from "./ui/table";
+import { Badge } from "./ui/badge";
+import SeverityBadge from "./ui/SeverityBadge";
 
 const AdminApplicationTable = () => {
   const patientApplications = useQuery<Application[]>({
@@ -30,26 +32,34 @@ const AdminApplicationTable = () => {
             <TableHeader className="table-header">
               <TableRow>
                 <TableHead className="table-header-cell">Issue</TableHead>
-                <TableHead className="table-header-cell hidden md:table-cell">
-                  Status
+                <TableHead className="table-header-cell">
+                  Name of Patient
                 </TableHead>
-                <TableHead className="table-header-cell hidden md:table-cell">
-                  Applied When
-                </TableHead>
+                <TableHead className="table-header-cell">Severity</TableHead>
+                <TableHead className="table-header-cell">Status</TableHead>
+                <TableHead className="table-header-cell">Applied at</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-
-                {allApplications?.map((application) => (
-                    <TableRow key={application.id} className="table-row">
-                    <TableCell className="table-cell">
-                      <div className="block md:hidden mt-3"></div>
-                    </TableCell>
-                    <TableCell className="hidden md:table-cell"></TableCell>
-                    <TableCell className="hidden md:table-cell"></TableCell>
-                  </TableRow>
-                ))}
-              
+              {allApplications?.map((application) => (
+                <TableRow key={application.id} className="table-row">
+                  <TableCell className="table-cell">
+                    {application.issue}
+                  </TableCell>
+                  <TableCell className="table-cell">
+                    {application.name}
+                  </TableCell>
+                  <TableCell className="table-cell">
+                    <SeverityBadge number={application.severity} />
+                  </TableCell>
+                  <TableCell className="table-cell">
+                    <AppointmentStatusBadge status={application.status} />
+                  </TableCell>
+                  <TableCell className="table-cell">
+                    {new Date(application.createdAt).toDateString()}
+                  </TableCell>
+                </TableRow>
+              ))}
             </TableBody>
           </Table>
         </div>

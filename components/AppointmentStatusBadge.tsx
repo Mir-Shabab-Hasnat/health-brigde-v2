@@ -3,16 +3,16 @@ import { Badge } from "./ui/badge";
 
 const statusMap: Record<
   string,
-  { label: string; color: "secondary" | "default" | "destructive" | "outline" | null | undefined }
+  { label: string; color:  "gray" | "red" | "green" | "blue" | "yellow" | "orange" | "violet" }
 > = {
-  pending: { label: "Pending", color: "secondary" },
-  booked: { label: "Booked", color: "default" },
-  closed: { label: "Booked", color: "destructive" },
+  pending: { label: "Pending", color: "orange" },
+  booked: { label: "Booked", color: "green" },
+  closed: { label: "Booked", color: "red" },
 };
 
 const AppointmentStatusBadge = ({ status }: { status: string }) => {
   return (
-    <Badge variant={statusMap[status].color}>{statusMap[status].label}</Badge>
+    <Badge color={statusMap[status].color}>{statusMap[status].label}</Badge>
   );
 };
 
