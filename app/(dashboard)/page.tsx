@@ -9,19 +9,18 @@ import { currentUser } from "@clerk/nextjs/server";
 import { User } from "@prisma/client";
 import { useQuery } from "@tanstack/react-query";
 import { redirect, useRouter } from "next/navigation";
+
 import React from "react";
 
 const page = () => {
   const router = useRouter()
+  
   const userInfo = useQuery<User>({
-    queryKey: ["getUserInfo"],
+    queryKey: ["getuserInfo"],
     queryFn: () => fetch("/api/get-user-info").then((res) => res.json()),
   });
 
-  
-
   if (!userInfo.data) {
-    console.log("no user in db")
     router.push("/wizard")
   }
   
