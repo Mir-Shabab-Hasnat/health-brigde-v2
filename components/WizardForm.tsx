@@ -40,7 +40,7 @@ const WizardForm = () => {
 
 
   const userInfo = useQuery<User>({
-    queryKey: ["userInfo"],
+    queryKey: ["create-userInfo"],
     queryFn: () => fetch("/api/user-info").then((res) => res.json()),
   });
 

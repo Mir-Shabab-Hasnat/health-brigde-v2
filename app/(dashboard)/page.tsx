@@ -8,14 +8,22 @@ import prisma from "@/lib/prisma";
 import { currentUser } from "@clerk/nextjs/server";
 import { User } from "@prisma/client";
 import { useQuery } from "@tanstack/react-query";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import React from "react";
 
 const page = () => {
+  const router = useRouter()
   const userInfo = useQuery<User>({
-    queryKey: ["userInfo"],
+    queryKey: ["getUserInfo"],
     queryFn: () => fetch("/api/get-user-info").then((res) => res.json()),
   });
+
+  
+
+  if (!userInfo.data) {
+    console.log("no user in db")
+    router.push("/wizard")
+  }
   
   
   return (
