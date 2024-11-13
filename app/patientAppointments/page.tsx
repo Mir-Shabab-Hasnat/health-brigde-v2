@@ -3,6 +3,7 @@
 import MakeAppointmentButton from "@/components/MakeAppointmentButton";
 import PatientAppointmentsView from "@/components/PatientAppointmentsView";
 import SkeletonWrapper from "@/components/SkeletonWrapper";
+import ApplicationStatusFilter from "@/components/Table/ApplicationStatusFilter";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -27,6 +28,9 @@ const page = () => {
         </div>
       </div>
       <div className="container mx-auto w-full gap-6 px-8 py-32">
+        <div className="mb-3">
+          <ApplicationStatusFilter />
+        </div>
         <PatientAppointmentsView />
       </div>
       
