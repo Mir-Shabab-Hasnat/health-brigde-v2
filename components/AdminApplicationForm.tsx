@@ -27,9 +27,10 @@ import {
 } from "@/components/ui/select";
 import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
-import { UpdateApplicationAdmin } from "@/app/admin/dashboard/[id]/_actions/updateApplicationAdmin";
+
 import { toast } from "sonner";
 import { Application } from "@prisma/client";
+import { UpdateApplicationAdmin } from "@/app/admin/dashboard/applications/[id]/_actions/updateApplicationAdmin";
 
 interface ApplicationFormProps {
   applicationId: string;
@@ -51,7 +52,7 @@ const AdminApplicationForm = ({ applicationId }: ApplicationFormProps) => {
       toast.success(`Appointment for: ${data.issue} updated`, {
         id: "update-aplication-admin",
       });
-      router.push("/admin/dashboard");
+      router.push("/admin/dashboard/applications");
       router.refresh();
     },
     onError: () => {
@@ -130,7 +131,7 @@ const AdminApplicationForm = ({ applicationId }: ApplicationFormProps) => {
         </form>
       </Form>
       <div className="flex justify-end">
-        <Button variant="outline" onClick={() => router.push("/admin/dashboard")}>
+        <Button variant="outline" onClick={() => router.push("/admin/dashboard/applications")}>
         Go back to dashboard
       </Button>
       </div>

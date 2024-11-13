@@ -1,12 +1,12 @@
-import AdminApplicationTable from '@/components/AdminApplicationTable'
-import Image from 'next/image'
-import React from 'react'
+import AdminApplicationTable from "@/components/AdminApplicationTable";
+import Image from "next/image";
+import React from "react";
 
 const page = () => {
   return (
     <div className="relative h-full">
-      <Image 
-        src={'/Artboard.png'}
+      <Image
+        src={"/Artboard.png"}
         alt="background image"
         fill
         style={{ objectFit: "cover" }} // This ensures the image covers the whole area
@@ -18,10 +18,10 @@ const page = () => {
         </div>
       </div>
       <div className="container mx-auto w-full gap-6 px-8 py-32">
-        something
+        <AdminApplicationTable />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default page
+export default page;

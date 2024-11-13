@@ -27,7 +27,7 @@ const AdminApplicationTable = () => {
 
   const patientApplications = useQuery<Application[]>({
     queryKey: ["get-all-aplications"],
-    queryFn: () => fetch("api/get-all-applications").then((res) => res.json()),
+    queryFn: () => fetch("/admin/api/get-all-applications").then((res) => res.json()),
   });
 
   const allApplications = patientApplications.data;
@@ -133,7 +133,7 @@ const AdminApplicationTable = () => {
                     <Button
                       variant="outline"
                       onClick={() => {
-                        router.push(`/admin/dashboard/${application.id}`);
+                        router.push(`/admin/dashboard/applications/${application.id}`);
                       }}
                     >
                       {application.issue}
