@@ -110,19 +110,22 @@ const PatientAppointmentsView = () => {
                             View your appointment details
                           </DialogDescription>
                         </DialogHeader>
-                        <div className="gap-4 py-4">
-                          <div className="items-center gap-4">
+                        <div className="gap-4 py-4 space-y-4">
+                          <div className="items-center">
                             <span className="font-bold">Patient Name: </span>{" "}
                             {application.name}
                           </div>
-                          <div className="items-center gap-4">
+                          <div className="items-center">
                             <span className="font-bold">Applied date: </span>{" "}
                             {new Date(application.createdAt).toDateString()}
                           </div>
-                          <div className="items-center gap-4 mt-6">
+                          <div className="items-center mt-6">
                             <span className="font-bold">Symptoms: </span>{" "}
                             {application.symptoms}
                           </div>
+                          {application.appointmentDate && (<div>
+                            Appointment date: {new Date(application.appointmentDate).toDateString()}
+                          </div>)}
                         </div>
                         <DialogFooter>
                           <DialogClose asChild>
