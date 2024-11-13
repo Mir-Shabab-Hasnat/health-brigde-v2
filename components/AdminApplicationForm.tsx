@@ -48,92 +48,94 @@ const AdminApplicationForm = ({ applicationId }: ApplicationFormProps) => {
     },
     onSuccess: async (data: Application) => {
       toast.dismiss();
-      toast.success(
-        `Appointment for: ${data.issue} updated`,
-        {
-          id: "update-aplication-admin",
-        }
-      );
+      toast.success(`Appointment for: ${data.issue} updated`, {
+        id: "update-aplication-admin",
+      });
       router.push("/admin/dashboard");
       router.refresh();
     },
     onError: () => {
-      toast.dismiss()
+      toast.dismiss();
       toast.error("Something went wrong", {
         id: "update-application-id",
       });
     },
-  })
+  });
 
   const handleSubmit = (updateData: ApplicationChangeFormSchemaType) => {
-    updateApplication.mutate({applicationAdminData: updateData, applicationId: applicationId})
+    updateApplication.mutate({
+      applicationAdminData: updateData,
+      applicationId: applicationId,
+    });
   };
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
-        {/* Status and Appointment Date Fields */}
-        <div className="flex flex-col md:flex-row justify-between gap-6">
-          <div className="flex flex-col space-y-4 w-full md:w-auto">
-            {/* Status Field */}
-            <FormField
-              control={form.control}
-              name="status"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Status</FormLabel>
-                  <FormControl>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
-                      <SelectTrigger>
-                        <SelectValue placeholder="Change Status" />
-                      </SelectTrigger>
-                      <SelectContent position="popper">
-                        <SelectItem value="pending">Pending</SelectItem>
-                        <SelectItem value="booked">Booked</SelectItem>
-                        <SelectItem value="closed">Closed</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-  
-            {/* Appointment Date Field */}
-            <FormField
-              control={form.control}
-              name="appointmentDate"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Appointment Date</FormLabel>
-                  <FormControl>
-                    <Input type="date" {...field} />
-                  </FormControl>
-                  <FormDescription>
-                    Please select a date for the appointment.
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+    <div>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
+          {/* Status and Appointment Date Fields */}
+          <div className="flex flex-col md:flex-row justify-between gap-6">
+            <div className="flex flex-col space-y-4 w-full md:w-auto">
+              {/* Status Field */}
+              <FormField
+                control={form.control}
+                name="status"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Status</FormLabel>
+                    <FormControl>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder="Change Status" />
+                        </SelectTrigger>
+                        <SelectContent position="popper">
+                          <SelectItem value="pending">Pending</SelectItem>
+                          <SelectItem value="booked">Booked</SelectItem>
+                          <SelectItem value="closed">Closed</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              {/* Appointment Date Field */}
+              <FormField
+                control={form.control}
+                name="appointmentDate"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Appointment Date</FormLabel>
+                    <FormControl>
+                      <Input type="date" {...field} />
+                    </FormControl>
+                    <FormDescription>
+                      Please select a date for the appointment.
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+
+            {/* Submit and Go Back Buttons */}
+            <div className="flex flex-col items-center space-y-4 w-full md:w-auto self-center">
+              <Button type="submit">Make Changes</Button>
+            </div>
           </div>
-  
-          {/* Submit and Go Back Buttons */}
-          <div className="flex flex-col items-center space-y-4 w-full md:w-auto self-center">
-            <Button type="submit">Make Changes</Button>
-            <Button
-              variant="outline"
-              onClick={() => router.push("/admin/dashboard")}
-            >
-              Go back to dashboard
-            </Button>
-          </div>
-        </div>
-      </form>
-    </Form>
+        </form>
+      </Form>
+      <div className="flex justify-end">
+        <Button variant="outline" onClick={() => router.push("/admin/dashboard")}>
+        Go back to dashboard
+      </Button>
+      </div>
+      
+    </div>
   );
 };
 
