@@ -17,10 +17,10 @@ const page = ({ searchParams }: Props) => {
   return (
     <div className="relative h-full">
       <Image
-        src={"/Artboard.png"}
+        src={'/Artboard.png'}
         alt="background image"
-        layout="fill" // This will make the image fill the entire container
-        objectFit="cover" // This ensures the image covers the whole area
+        fill
+        style={{ objectFit: "cover" }} // This ensures the image covers the whole area
         className="absolute inset-0 -z-10" // Position the image behind everything else
       />
       <div className="border-b bg-card">
