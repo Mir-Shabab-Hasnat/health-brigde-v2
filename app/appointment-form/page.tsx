@@ -11,11 +11,11 @@ import { Application } from "@prisma/client";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
-const page = () => {
+const AppointmentFormPage = () => {
   const router = useRouter()
   const queryClient = useQueryClient();
 
-  const { mutate, isPending } = useMutation({
+  const { mutate } = useMutation({
     mutationFn: CreateAplication,
     onMutate: () => {
       toast.loading("Creating your application")
@@ -70,4 +70,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default AppointmentFormPage;

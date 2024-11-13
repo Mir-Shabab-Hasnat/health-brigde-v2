@@ -1,7 +1,6 @@
 "use server"
 
 import prisma from "@/lib/prisma";
-import { ApiApplicationAdminChangeSchemaType } from "@/schema/ApiApplicationAdminChange";
 import { ApplicationChangeFormSchema, ApplicationChangeFormSchemaType } from "@/schema/applicationConfirmation";
 
 export async function UpdateApplicationAdmin({applicationAdminData, applicationId}: {applicationAdminData: ApplicationChangeFormSchemaType, applicationId: string}) {

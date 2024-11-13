@@ -1,8 +1,6 @@
 import AdminButton from "@/components/AdminButton";
 import AuthDecor from "@/components/AuthDecor";
-import Logo from "@/components/Logo";
-import { Separator } from "@radix-ui/react-dropdown-menu";
-import React, { ReactNode } from "react";
+import { ReactNode } from "react";
 
 const layout = ({ children }: { children: ReactNode }) => {
   return (
