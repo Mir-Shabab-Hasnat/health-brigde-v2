@@ -24,6 +24,7 @@ const NavBar = () => {
 const items = [
   { label: "Dashboard", link: "/" },
   { label: "Apointments", link: "/patientAppointments" },
+  {label: "You an Admin?", link: "/admin/dashboard"}
   
 ];
 

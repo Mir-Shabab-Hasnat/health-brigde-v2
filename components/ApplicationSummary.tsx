@@ -24,7 +24,7 @@ const ApplicationSummary = ({pending, booked, closed}: Props) => {
         {statuses.map(status => (
             <Card key={status.label} className='p-3'>
                 <div className='flex flex-col gap-1'>
-                    <Link className='text-lg font-medium' href="/patientAppointments">{status.label}</Link>
+                    <div className='text-lg font-medium'>{status.label}</div>
                     <div className='font-bold text-xl'>
                         {status.value}
                     </div>

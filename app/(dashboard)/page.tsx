@@ -34,30 +34,26 @@ const page = async () => {
   const pendingCount = await prisma.application.count({
     where: {
       patientId: user.id,
-      status: "pending"
-      
-    }
-  })
+      status: "pending",
+    },
+  });
   const bookedCount = await prisma.application.count({
     where: {
       patientId: user.id,
-      status: "booked"
-      
-    }
-  })
+      status: "booked",
+    },
+  });
   const closedCount = await prisma.application.count({
     where: {
       patientId: user.id,
-      status: "closed"
-      
-    }
-  })
-  
+      status: "closed",
+    },
+  });
 
   return (
     <div className="relative h-full">
       <Image
-        src={'/Artboard.png'}
+        src={"/Artboard.png"}
         alt="background image"
         fill
         style={{ objectFit: "cover" }} // This ensures the image covers the whole area
@@ -73,8 +69,22 @@ const page = async () => {
         </div>
       </div>
       <div className="container mx-auto w-full gap-6 px-8 py-32">
-        
-        <LatestApplications />
+        <div className="container mx-auto w-full px-8 py-32">
+          <div className="flex flex-col space-y-4 justify-center items-center">
+            <ApplicationSummary
+              pending={pendingCount}
+              booked={bookedCount}
+              closed={closedCount}
+            />
+            <div className="w-full md:w-3/5">
+              <ApplicationChart
+                pending={pendingCount}
+                booked={bookedCount}
+                closed={closedCount}
+              />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
