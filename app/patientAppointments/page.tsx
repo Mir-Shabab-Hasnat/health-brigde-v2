@@ -2,17 +2,15 @@
 
 import MakeAppointmentButton from "@/components/MakeAppointmentButton";
 import PatientAppointmentsView from "@/components/PatientAppointmentsView";
-import SkeletonWrapper from "@/components/SkeletonWrapper";
+
 
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+
 import React from "react";
 
-interface Props {
-  searchParams: {status: string}
-}
 
-const page = ({ searchParams }: Props) => {
+
+const page = () => {
   
   return (
     <div className="relative h-full">
@@ -34,7 +32,7 @@ const page = ({ searchParams }: Props) => {
       </div>
       <div className="container mx-auto w-full gap-6 px-8 py-32">
         
-        <PatientAppointmentsView searchParams={searchParams}/>
+        <PatientAppointmentsView />
       </div>
     </div>
   );

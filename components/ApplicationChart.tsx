@@ -1,6 +1,6 @@
 "use client"
 
-import { PrismaPromise } from '@prisma/client';
+
 import React from 'react'
 import { Card } from './ui/card';
 import {ResponsiveContainer, BarChart, XAxis, YAxis, Bar} from "recharts"

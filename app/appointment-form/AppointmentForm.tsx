@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
+
 
 import { Button } from "@/components/ui/button";
 import {
@@ -19,7 +19,7 @@ import { FormSchema, FormSchemaType } from "@/schema/appointment";
 import { useQuery } from "@tanstack/react-query";
 import { User } from "@prisma/client";
 import { useEffect } from "react";
-import ApiResponse from "@/schema/ApiResponse";
+
 
 // Update the schema to include new fields
 
@@ -28,7 +28,7 @@ interface FormProps {
 }
 
 const AppointmentForm = ({ onSubmit }: FormProps) => {
-  const { data: userData, isLoading } = useQuery<User>({
+  const { data: userData } = useQuery<User>({
     queryKey: ["userInfo"],
     queryFn: () => fetch("/api/get-user-info").then((res) => res.json()),
   });

@@ -1,4 +1,3 @@
-import AdminApplicationTable from '@/components/AdminApplicationTable'
 import ApplicationChart from '@/components/ApplicationChart'
 import ApplicationSummary from '@/components/ApplicationSummary'
 import LatestApplications from '@/components/LatestApplications'

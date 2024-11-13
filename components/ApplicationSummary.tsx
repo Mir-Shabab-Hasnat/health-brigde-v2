@@ -1,7 +1,5 @@
 import React from 'react'
 import { Card } from './ui/card';
-import Link from 'next/link';
-import { PrismaPromise } from '@prisma/client';
 
 interface Props {
     pending: number;

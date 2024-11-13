@@ -2,10 +2,9 @@ import prisma from "@/lib/prisma";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
-export async function GET(request: Request) {
+export async function GET() {
     const user = await currentUser()
-    const url = new URL(request.url)
-    const status = url.searchParams.get("status")
+    
 
     if (!user) {
         redirect("/sign-in")

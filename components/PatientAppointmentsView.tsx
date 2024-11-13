@@ -13,7 +13,6 @@ import {
 import AppointmentStatusBadge from "./AppointmentStatusBadge";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -26,13 +25,9 @@ import SkeletonWrapper from "./SkeletonWrapper";
 import { DeletePatientApplication } from "@/app/patientAppointments/_actions/delete-application";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
-interface Props {
-  searchParams: { status: string };
-}
-
-const PatientAppointmentsView = ({ searchParams }: Props) => {
+const PatientAppointmentsView = () => {
   const router = useRouter();
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState<string>("");
@@ -76,20 +71,22 @@ const PatientAppointmentsView = ({ searchParams }: Props) => {
   };
 
   // Filter and sort applications based on search term, status, and sorting
-  const filteredApplications = applications?.filter((application) => {
-    // Filter by search term (issue name)
-    const matchesSearchTerm = application.issue
-      .toLowerCase()
-      .includes(searchTerm.toLowerCase());
-    // Filter by status if selected
-    const matchesStatusFilter =
-      statusFilter === "" || application.status === statusFilter;
+  const filteredApplications = applications
+    ?.filter((application) => {
+      // Filter by search term (issue name)
+      const matchesSearchTerm = application.issue
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase());
+      // Filter by status if selected
+      const matchesStatusFilter =
+        statusFilter === "" || application.status === statusFilter;
 
-    return matchesSearchTerm && matchesStatusFilter;
-  }).sort((a, b) => {
-    // Sort alphabetically by issue name
-    return a.issue.localeCompare(b.issue);
-  });
+      return matchesSearchTerm && matchesStatusFilter;
+    })
+    .sort((a, b) => {
+      // Sort alphabetically by issue name
+      return a.issue.localeCompare(b.issue);
+    });
 
   return (
     <SkeletonWrapper isLoading={userApplications.isFetching}>
@@ -151,6 +148,28 @@ const PatientAppointmentsView = ({ searchParams }: Props) => {
                             View your appointment details here.
                           </DialogDescription>
                         </DialogHeader>
+                        
+                        
+                        <div className="gap-4 py-4 space-y-4">
+                          <div className="items-center">
+                            <span className="font-bold">Patient Name: </span>{" "}
+                            {application.name}
+                          </div>
+                          
+                          <div className="items-center">
+                            <span className="font-bold">Applied date: </span>{" "}
+                            {new Date(application.createdAt).toDateString()}
+                          </div>
+                          
+                          <div className="items-center mt-6">
+                            <span className="font-bold">Symptoms: </span>{" "}
+                            {application.symptoms}
+                          </div>
+                          {application.appointmentDate && (<div>
+                            Appointment date: {new Date(application.appointmentDate).toDateString()}
+                          </div>)}
+                        </div>
+                        
                         <DialogFooter>
                           <Button onClick={() => handleSubmit(application.id)}>
                             Delete Appointment

@@ -1,18 +1,17 @@
 import ApplicationChart from "@/components/ApplicationChart";
 import ApplicationSummary from "@/components/ApplicationSummary";
-import LatestApplications from "@/components/LatestApplications";
+
 import MakeAppointmentButton from "@/components/MakeAppointmentButton";
 
-import SkeletonWrapper from "@/components/SkeletonWrapper";
+
 import prisma from "@/lib/prisma";
 import { currentUser } from "@clerk/nextjs/server";
 
-import { User } from "@prisma/client";
-import { useQuery } from "@tanstack/react-query";
+
 import Image from "next/image";
 import { redirect } from "next/navigation";
 
-import React from "react";
+
 
 const page = async () => {
   const user = await currentUser();
