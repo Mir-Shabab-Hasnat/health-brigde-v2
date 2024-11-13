@@ -26,6 +26,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useRouter } from "next/navigation";
+import { useMutation } from "@tanstack/react-query";
+import { UpdateApplicationAdmin } from "@/app/admin/dashboard/[id]/_actions/updateApplicationAdmin";
+import { toast } from "sonner";
+import { Application } from "@prisma/client";
 
 interface ApplicationFormProps {
   applicationId: string;
@@ -37,9 +41,32 @@ const AdminApplicationForm = ({ applicationId }: ApplicationFormProps) => {
     resolver: zodResolver(ApplicationChangeFormSchema),
   });
 
-  const handleSubmit = (data: any) => {
-    console.log("Submit data:", data, "for application ID:", applicationId);
-    // Add your submission logic here
+  const updateApplication = useMutation({
+    mutationFn: UpdateApplicationAdmin,
+    onMutate: () => {
+      toast.loading("Updating patient application...");
+    },
+    onSuccess: async (data: Application) => {
+      toast.dismiss();
+      toast.success(
+        `Appointment for: ${data.issue} updated`,
+        {
+          id: "update-aplication-admin",
+        }
+      );
+      router.push("/admin/dashboard");
+      router.refresh();
+    },
+    onError: () => {
+      toast.dismiss()
+      toast.error("Something went wrong", {
+        id: "update-application-id",
+      });
+    },
+  })
+
+  const handleSubmit = (updateData: ApplicationChangeFormSchemaType) => {
+    updateApplication.mutate({applicationAdminData: updateData, applicationId: applicationId})
   };
 
   return (
