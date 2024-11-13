@@ -1,3 +1,4 @@
+import ApplicationChart from "@/components/ApplicationChart";
 import ApplicationSummary from "@/components/ApplicationSummary";
 import MakeAppointmentButton from "@/components/MakeAppointmentButton";
 
@@ -29,27 +30,28 @@ const page = async () => {
     redirect("/wizard");
   }
 
-  const pendingCount = prisma.application.count({
+  const pendingCount = await prisma.application.count({
     where: {
       patientId: user.id,
       status: "pending"
       
     }
   })
-  const bookedCount = prisma.application.count({
+  const bookedCount = await prisma.application.count({
     where: {
       patientId: user.id,
       status: "booked"
       
     }
   })
-  const closedCount = prisma.application.count({
+  const closedCount = await prisma.application.count({
     where: {
       patientId: user.id,
       status: "closed"
       
     }
   })
+  
 
   return (
     <div className="relative h-full">
@@ -71,7 +73,7 @@ const page = async () => {
       </div>
       <div className="container mx-auto w-full gap-6 px-8 py-32">
         
-        <ApplicationSummary pending={pendingCount} booked={bookedCount} closed={closedCount}/>
+        <ApplicationChart pending={pendingCount} booked={bookedCount} closed={closedCount}/>
       </div>
     </div>
   );

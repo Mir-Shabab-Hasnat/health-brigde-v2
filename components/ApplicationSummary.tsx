@@ -4,15 +4,15 @@ import Link from 'next/link';
 import { PrismaPromise } from '@prisma/client';
 
 interface Props {
-    pending: PrismaPromise<number>;
-    booked: PrismaPromise<number>;
-    closed: PrismaPromise<number>
+    pending: number;
+    booked: number;
+    closed: number
 }
 
 const ApplicationSummary = ({pending, booked, closed}: Props) => {
     const statuses: {
         label: string,
-        value: PrismaPromise<number>,
+        value: number,
         status: string
     }[] = [
         {label: "Pending Applications", value: pending, status: "pending"},
