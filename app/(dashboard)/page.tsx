@@ -1,5 +1,6 @@
 import ApplicationChart from "@/components/ApplicationChart";
 import ApplicationSummary from "@/components/ApplicationSummary";
+import LatestApplications from "@/components/LatestApplications";
 import MakeAppointmentButton from "@/components/MakeAppointmentButton";
 
 import SkeletonWrapper from "@/components/SkeletonWrapper";
@@ -73,7 +74,7 @@ const page = async () => {
       </div>
       <div className="container mx-auto w-full gap-6 px-8 py-32">
         
-        <ApplicationChart pending={pendingCount} booked={bookedCount} closed={closedCount}/>
+        <LatestApplications />
       </div>
     </div>
   );
