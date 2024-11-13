@@ -1,3 +1,4 @@
+import AdminApplicationForm from "@/components/AdminApplicationForm";
 import AppointmentStatusBadge from "@/components/AppointmentStatusBadge";
 import { Button } from "@/components/ui/button";
 import {
@@ -8,10 +9,17 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Form } from "@/components/ui/form";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import SeverityBadge from "@/components/ui/SeverityBadge";
 import prisma from "@/lib/prisma";
+
 import { notFound } from "next/navigation";
 import React from "react";
 
@@ -86,22 +94,8 @@ const applicationDetails = async ({ params }: Props) => {
               <div>Severity: {application.severity}</div>
             </div>
           </CardContent>
-          <CardFooter className="flex justify-between">
-            <div className="flex-none"> <Select>
-              <SelectTrigger id="status">
-                <SelectValue placeholder="Change Status"/>
-              </SelectTrigger>
-              <SelectContent position="popper">
-                  <SelectItem value="pending">Pending</SelectItem>
-                  <SelectItem value="booked">Book</SelectItem>
-                  <SelectItem value="closed">Close</SelectItem>
-                  
-                </SelectContent>
-            </Select></div>
-           
-            <Button>
-              Make Changes
-            </Button>
+          <CardFooter className="block">
+            <AdminApplicationForm applicationId={application.id} />
           </CardFooter>
         </Card>
       </div>
