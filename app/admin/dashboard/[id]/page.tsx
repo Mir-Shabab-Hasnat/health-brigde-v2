@@ -40,9 +40,9 @@ const applicationDetails = async ({ params }: Props) => {
     <div className="h-full bg-background">
       <div className="border-b bg-card">
         <div className="container mx-auto flex flex-wrap items-center justify-between gap-6 px-8 py-8">
-          <p className="text-3xl font-bold">
+          <h1 className="text-3xl font-bold">
             Appointment Application details of {application.name}
-          </p>
+          </h1>
         </div>
       </div>
       <div className="container mx-auto w-full gap-6 px-8 py-8">
@@ -60,14 +60,14 @@ const applicationDetails = async ({ params }: Props) => {
                 </div>
               </div>
             </CardTitle>
-            <CardDescription>
+            <div>
               <div className="flex justify-between">
                 <AppointmentStatusBadge status={application.status} />
                 <div className="text-sm mt-3">
                   Created at: {new Date(application.createdAt).toDateString()}
                 </div>
               </div>
-            </CardDescription>
+            </div>
           </CardHeader>
           <CardContent>
             <div className="mb-3 space-y-3">
