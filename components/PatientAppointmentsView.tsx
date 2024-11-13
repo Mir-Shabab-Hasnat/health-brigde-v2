@@ -25,23 +25,26 @@ import { Button } from "./ui/button";
 import SkeletonWrapper from "./SkeletonWrapper";
 import { DeletePatientApplication } from "@/app/patientAppointments/_actions/delete-application";
 import { toast } from "sonner";
-import { DeletePatientAppointmentSchemaType } from "@/schema/deleteApplication";
 import { useRouter } from "next/navigation";
-import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import { useState, useEffect } from "react";
 
-const PatientAppointmentsView = () => {
+interface Props {
+  searchParams: { status: string };
+}
+
+const PatientAppointmentsView = ({ searchParams }: Props) => {
   const router = useRouter();
+  const [searchTerm, setSearchTerm] = useState("");
+  const [statusFilter, setStatusFilter] = useState<string>("");
 
   const userApplications = useQuery<Application[]>({
     queryKey: ["userApplications"],
     queryFn: () =>
       fetch("/api/get-user-applications").then((res) => res.json()),
+    refetchOnWindowFocus: true,
   });
 
   const applications = userApplications.data;
-  if (applications) {
-    console.log(applications[0]);
-  }
 
   const deleteAplication = useMutation({
     mutationFn: DeletePatientApplication,
@@ -72,9 +75,47 @@ const PatientAppointmentsView = () => {
     deleteAplication.mutate({ applicationId });
   };
 
+  // Filter and sort applications based on search term, status, and sorting
+  const filteredApplications = applications?.filter((application) => {
+    // Filter by search term (issue name)
+    const matchesSearchTerm = application.issue
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase());
+    // Filter by status if selected
+    const matchesStatusFilter =
+      statusFilter === "" || application.status === statusFilter;
+
+    return matchesSearchTerm && matchesStatusFilter;
+  }).sort((a, b) => {
+    // Sort alphabetically by issue name
+    return a.issue.localeCompare(b.issue);
+  });
+
   return (
     <SkeletonWrapper isLoading={userApplications.isFetching}>
-      <div className="w-full">
+      <div className="w-full mb-6">
+        {/* Search and Filter Controls */}
+        <div className="flex gap-4 mb-4">
+          <input
+            type="text"
+            placeholder="Search by Issue Name"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="px-4 py-2 border rounded-lg w-full md:w-auto"
+          />
+          <select
+            value={statusFilter}
+            onChange={(e) => setStatusFilter(e.target.value)}
+            className="px-4 py-2 border rounded-lg w-full md:w-auto"
+          >
+            <option value="">Filter by Status</option>
+            <option value="pending">Pending</option>
+            <option value="closed">Closed</option>
+            <option value="booked">Booked</option>
+          </select>
+        </div>
+
+        {/* Table of Applications */}
         <div className="table-container">
           <Table className="table">
             <TableHeader className="table-header">
@@ -89,7 +130,7 @@ const PatientAppointmentsView = () => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {applications?.map((application) => (
+              {filteredApplications?.map((application) => (
                 <TableRow key={application.id} className="table-row">
                   <TableCell className="table-cell">
                     <Dialog>
@@ -107,49 +148,22 @@ const PatientAppointmentsView = () => {
                             </div>
                           </DialogTitle>
                           <DialogDescription>
-                            View your appointment details
+                            View your appointment details here.
                           </DialogDescription>
                         </DialogHeader>
-                        <div className="gap-4 py-4 space-y-4">
-                          <div className="items-center">
-                            <span className="font-bold">Patient Name: </span>{" "}
-                            {application.name}
-                          </div>
-                          <div className="items-center">
-                            <span className="font-bold">Applied date: </span>{" "}
-                            {new Date(application.createdAt).toDateString()}
-                          </div>
-                          <div className="items-center mt-6">
-                            <span className="font-bold">Symptoms: </span>{" "}
-                            {application.symptoms}
-                          </div>
-                          {application.appointmentDate && (<div>
-                            Appointment date: {new Date(application.appointmentDate).toDateString()}
-                          </div>)}
-                        </div>
                         <DialogFooter>
-                          <DialogClose asChild>
-                            <Button
-                              variant="destructive"
-                              type="button"
-                              onClick={() => handleSubmit(application.id)}
-                            >
-                              Delete
-                            </Button>
-                          </DialogClose>
+                          <Button onClick={() => handleSubmit(application.id)}>
+                            Delete Appointment
+                          </Button>
                         </DialogFooter>
                       </DialogContent>
                     </Dialog>
-
-                    <div className="block md:hidden mt-3">
-                      <AppointmentStatusBadge status={application.status} />
-                    </div>
                   </TableCell>
                   <TableCell className="hidden md:table-cell">
                     <AppointmentStatusBadge status={application.status} />
                   </TableCell>
                   <TableCell className="hidden md:table-cell">
-                    {new Date(application.createdAt).toDateString()}
+                    {new Date(application.createdAt).toLocaleDateString()}
                   </TableCell>
                 </TableRow>
               ))}

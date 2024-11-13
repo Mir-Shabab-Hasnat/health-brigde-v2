@@ -23,6 +23,7 @@ const AdminNavBar = () => {
 
 const items = [
   { label: "Admin Dashboard", link: "/admin/dashboard" },
+  {label: "Appointment Applications", link: "/admin/dashboard/applications"}
   
   
 ];

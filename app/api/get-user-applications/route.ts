@@ -4,6 +4,8 @@ import { redirect } from "next/navigation";
 
 export async function GET(request: Request) {
     const user = await currentUser()
+    const url = new URL(request.url)
+    const status = url.searchParams.get("status")
 
     if (!user) {
         redirect("/sign-in")
@@ -11,7 +13,8 @@ export async function GET(request: Request) {
 
     const userApplications = await prisma.application.findMany({
         where: {
-            patientId: user.id
+            patientId: user.id,
+           
         }
     })
 
